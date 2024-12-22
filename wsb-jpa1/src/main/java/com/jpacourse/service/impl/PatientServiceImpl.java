@@ -38,4 +38,9 @@ public class PatientServiceImpl implements PatientService {
 
         return PatientMapper.mapToTO(entity);
     }
+
+    @Override
+    public void delete(Long id) {
+        patientDao.delete(id);
+    }
 }

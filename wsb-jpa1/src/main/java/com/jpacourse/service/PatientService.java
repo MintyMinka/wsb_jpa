@@ -7,4 +7,5 @@ public interface PatientService
 {
     public PatientTO findById(final Long id);
     public PatientTO createNewVisit(final NewVisitTO newVisitTO);
+    public void delete(final Long id);
 }
