@@ -1,13 +1,6 @@
 -- insert into address (id, address_line1, address_line2, city, postal_code)
 --             values (1, 'xx', 'yy', 'city', '62-030');
 
--- usuwam istniejące dane (jeśli już jakieś istnieją)
-TRUNCATE TABLE VISIT;
-TRUNCATE TABLE MEDICAL_TREATMENT;
-TRUNCATE TABLE DOCTOR;
-TRUNCATE TABLE PATIENT;
-TRUNCATE TABLE ADDRESS;
-
 -- nowe dane do tabeli Address
 INSERT INTO ADDRESS (id, city, address_line1, address_line2, postal_code) VALUES
                                                                               (1, 'Gliwice', 'Polna', '9/13', '60-140'),
@@ -15,13 +8,13 @@ INSERT INTO ADDRESS (id, city, address_line1, address_line2, postal_code) VALUES
 
 -- nowe dane do tabeli Doctor
 INSERT INTO DOCTOR (id, first_name, last_name, telephone_number, email, doctor_number, specialization, address_id) VALUES
-                                                                                                                       (1, 'Jan', 'Kowalski', '123456789', 'janek@example.com', 'DOC123', 'CARDIOLOGY', 1),
-                                                                                                                       (2, 'Karina', 'Mysz', '987654321', 'karina@example.com', 'DOC456', 'PEDIATRICS', 2);
+                                                                                                                       (1, 'Jan', 'Kowalski', '123456789', 'janek@example.com', 'DOC123', 'DERMATOLOGIST', 1),
+                                                                                                                       (2, 'Karina', 'Mysz', '987654321', 'karina@example.com', 'DOC456', 'SURGEON', 2);
 
 -- nowe dane do tabeli Patient
-INSERT INTO PATIENT (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id) VALUES
-                                                                                                                        (1, 'Alicja', 'Nowak', '123123123', 'alicja@example.com', 'PAT789', '1985-05-15', 1),
-                                                                                                                        (2, 'Robert', 'Janowski', '321321321', 'bob@example.com', 'PAT101', '1990-08-20', 2);
+INSERT INTO PATIENT (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id, gender) VALUES
+                                                                                                                        (1, 'Alicja', 'Nowak', '123123123', 'alicja@example.com', 'PAT789', '1985-05-15', 1, 'FEMALE'),
+                                                                                                                        (2, 'Robert', 'Janowski', '321321321', 'bob@example.com', 'PAT101', '1990-08-20', 2, 'MALE');
 
 -- nowe dane do tabeli Visit
 INSERT INTO VISIT (id, description, time, doctor_id, patient_id) VALUES
