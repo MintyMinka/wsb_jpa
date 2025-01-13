@@ -14,15 +14,42 @@ INSERT INTO DOCTOR (id, first_name, last_name, telephone_number, email, doctor_n
 -- nowe dane do tabeli Patient
 INSERT INTO PATIENT (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id, gender) VALUES
                                                                                                                         (1, 'Alicja', 'Nowak', '123123123', 'alicja@example.com', 'PAT789', '1985-05-15', 1, 'FEMALE'),
-                                                                                                                        (2, 'Robert', 'Janowski', '321321321', 'bob@example.com', 'PAT101', '1990-08-20', 2, 'MALE');
+                                                                                                                        (2, 'Robert', 'Janowski', '321321321', 'bob@example.com', 'PAT101', '1990-08-20', 2, 'MALE'),
+                                                                                                                        (3, 'Monika', 'Duch', '147147147', 'mon@example.com', 'PAT456', '2000-05-06', 2, 'FEMALE'),
+                                                                                                                        (4, 'Adam', 'Patyk', '621621621', 'adam@example.com', 'PAT852', '2010-08-10', 2, 'MALE');
 
 -- nowe dane do tabeli Visit
 INSERT INTO VISIT (id, description, time, doctor_id, patient_id) VALUES
                                                                      (1, 'Wizyta kontrolna', '2024-12-08 10:00:00', 1, 1),
-                                                                     (2, 'Obrazowanie przed zabiegiem', '2024-12-08 14:00:00', 2, 2);
+                                                                     (2, 'Obrazowanie przed zabiegiem', '2024-12-08 14:00:00', 2, 2),
+                                                                     (4, 'Badania kontrolne', '2024-12-11 12:00:00', 2, 1),
+                                                                     (5, 'Zabieg chirurgiczny', '2024-12-15 08:00:00', 2, 2),
+                                                                     (6, 'Kontrola po zabiegu', '2024-12-20 10:30:00', 2, 2);
 
 -- nowe dane do tabeli MedicalTreatment
 INSERT INTO MEDICAL_TREATMENT (id, description, type, visit_id) VALUES
                                                                     (1, 'Kontrola funkcji życiowych', 'EKG', 1),
                                                                     (2, 'Kontrola przed zabiegiem', 'RTG', 2);
 
+------------------------------
+-- PROPOZYCJE ZAPYTAŃ LAB3
+------------------------------
+-- zapytanie do wyszukiwania pacjentów
+SELECT * FROM PATIENT WHERE last_name = 'Duch';
+
+-- zapytanie wyszukujące wizyt pacjenta po jego ID
+SELECT *
+FROM VISIT
+WHERE patient_id = 1;
+
+-- zapytanie wyszukujące pacjentów mających więcej niż N wizyt
+SELECT P.id, P.first_name, P.last_name, COUNT(V.id) AS visit_count
+FROM PATIENT P
+JOIN VISIT V ON P.id = V.patient_id
+GROUP BY P.id, P.first_name, P.last_name
+HAVING COUNT(V.id) > 2;
+
+-- zapytanie wyszukujące pacjentów po dodanym polu (date_of_birth)
+SELECT *
+FROM PATIENT
+WHERE date_of_birth > '1990-08-20';
