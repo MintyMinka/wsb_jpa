@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements PatientDao {
@@ -40,5 +41,21 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
         entityManager.merge(patient);
 
         return patient;
+    }
+
+    @Override
+    public List<PatientEntity> findByLastName(String lastName) {
+        String query = "SELECT p FROM PatientEntity p WHERE p.lastName =: lastName";
+        return entityManager.createQuery(query, PatientEntity.class)
+                .setParameter("lastName", lastName)
+                .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsWithMoreVisitsThan(long minVisit) {
+        String query = "SELECT p FROM PatientEntity p JOIN VisitEntity v ON p.id = v.patientId GROUP BY p.id HAVING COUNT(v.id) > :minVisit";
+        return entityManager.createQuery(query, PatientEntity.class)
+                .setParameter("minVisit", minVisit)
+                .getResultList();
     }
 }
