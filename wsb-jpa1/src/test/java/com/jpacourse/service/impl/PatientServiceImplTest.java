@@ -1,7 +1,7 @@
 package com.jpacourse.service.impl;
 
 import com.jpacourse.dto.PatientTO;
-import com.jpacourse.persistence.dao.Dao;
+import com.jpacourse.dto.VisitTO;
 import com.jpacourse.persistence.dao.DoctorDao;
 import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.dao.VisitDao;
@@ -71,5 +71,17 @@ class PatientServiceImplTest {
 
         //then
         assertThat(patient.getGender()).isEqualTo(Gender.FEMALE);
+    }
+
+    @Test
+    void testShouldReturnListOfVisits() {
+        //given
+        final Long patientId = 2L;
+
+        //when
+        final List<VisitTO> visits = patientService.findVisitsByPatientId(patientId);
+
+        //then
+        assertThat(visits).hasSize(3);
     }
 }

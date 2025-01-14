@@ -4,6 +4,7 @@ import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.DoctorEntity;
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
+import com.jpacourse.persistence.enums.Gender;
 import com.jpacourse.rest.exception.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
 
@@ -53,9 +54,19 @@ public class PatientDaoImpl extends AbstractDao<PatientEntity, Long> implements 
 
     @Override
     public List<PatientEntity> findPatientsWithMoreVisitsThan(long minVisit) {
-        String query = "SELECT p FROM PatientEntity p JOIN VisitEntity v ON p.id = v.patientId GROUP BY p.id HAVING COUNT(v.id) > :minVisit";
+        String query = "SELECT p FROM PatientEntity p JOIN VisitEntity v ON p.id = v.patient.id GROUP BY p.id HAVING COUNT(v.id) > :minVisit";
         return entityManager.createQuery(query, PatientEntity.class)
                 .setParameter("minVisit", minVisit)
+                .getResultList();
+    }
+
+    @Override
+    public List<PatientEntity> findPatientsByGender(List<Gender> genderList) {
+        return entityManager.createQuery(
+                "SELECT patient FROM PatientEntity patient WHERE gender IN (:genderList)",
+                        PatientEntity.class
+                )
+                .setParameter("genderList", genderList)
                 .getResultList();
     }
 }
