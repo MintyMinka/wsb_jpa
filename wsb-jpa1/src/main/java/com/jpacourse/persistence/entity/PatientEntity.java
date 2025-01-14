@@ -35,6 +35,9 @@ public class PatientEntity {
 	@Enumerated(EnumType.STRING)
 	private Gender gender;
 
+	@Version
+	private Long version;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PATIENT_ID")
 	// Dwustronna relacja między Patient a Visit (Patient jest właścicielem)
@@ -124,5 +127,9 @@ public class PatientEntity {
 
 	public void setGender(Gender gender) {
 		this.gender = gender;
+	}
+
+	public Long getVersion() {
+		return version;
 	}
 }

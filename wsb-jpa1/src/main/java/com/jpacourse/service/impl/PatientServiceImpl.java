@@ -8,6 +8,7 @@ import com.jpacourse.mapper.VisitMapper;
 import com.jpacourse.persistence.dao.PatientDao;
 import com.jpacourse.persistence.entity.PatientEntity;
 import com.jpacourse.persistence.entity.VisitEntity;
+import com.jpacourse.rest.exception.EntityNotFoundException;
 import com.jpacourse.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,11 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientTO findById(Long id) {
-        final PatientEntity entity = patientDao.getOne(id);
+        final PatientEntity entity = patientDao.findOne(id);
+        if (entity == null) {
+            throw new EntityNotFoundException(id);
+        }
+
         return PatientMapper.mapToTO(entity);
     }
 

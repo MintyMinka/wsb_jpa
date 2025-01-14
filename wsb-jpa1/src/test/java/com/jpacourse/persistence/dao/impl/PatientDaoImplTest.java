@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.transaction.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertThrows;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -80,5 +82,24 @@ class PatientDaoImplTest {
         // then
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getLastName()).isEqualTo("Janowski");
+    }
+
+    @Test
+    void testUpdatingPatientAtTheSameTime() {
+        //given
+        final Long patientId = 1L;
+        final PatientEntity patientCopyOne = patientDao.findOne(patientId);
+        patientCopyOne.setEmail("test@djdjdj.pl");
+
+        final PatientEntity patientCopyTwo = patientDao.findOne(patientId);
+        patientCopyTwo.setFirstName("Ryszard");
+
+        //when
+        patientDao.update(patientCopyOne);
+
+        //then
+        assertThrows(OptimisticLockingFailureException.class, () -> {
+            patientDao.update(patientCopyTwo);
+        });
     }
 }

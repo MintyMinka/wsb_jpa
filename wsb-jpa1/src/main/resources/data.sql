@@ -12,13 +12,13 @@ INSERT INTO DOCTOR (id, first_name, last_name, telephone_number, email, doctor_n
                                                                                                                        (2, 'Karina', 'Mysz', '987654321', 'karina@example.com', 'DOC456', 'SURGEON', 2);
 
 -- nowe dane do tabeli Patient
-INSERT INTO PATIENT (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id, gender) VALUES
-                                                                                                                        (1, 'Alicja', 'Nowak', '123123123', 'alicja@example.com', 'PAT789', '1985-05-15', 1, 'FEMALE'),
-                                                                                                                        (2, 'Robert', 'Janowski', '321321321', 'bob@example.com', 'PAT101', '1990-08-20', 2, 'MALE'),
-                                                                                                                        (3, 'Monika', 'Duch', '147147147', 'mon@example.com', 'PAT456', '2000-05-06', 2, 'OTHER'),
-                                                                                                                        (4, 'Malina', 'Krzyk', '147147147', 'mon@example.com', 'PAT456', '2000-12-09', 2, 'FEMALE'),
-                                                                                                                        (5, 'Adam', 'Krzyk', '147144347', 'adkrz@example.com', 'PAT457', '2001-02-06', 2, 'MALE'),
-                                                                                                                        (6, 'Adam', 'Patyk', '621621621', 'adam@example.com', 'PAT852', '2010-08-10', 2, 'MALE');
+INSERT INTO PATIENT (id, first_name, last_name, telephone_number, email, patient_number, date_of_birth, address_id, gender, version) VALUES
+                                                                                                                        (1, 'Alicja', 'Nowak', '123123123', 'alicja@example.com', 'PAT789', '1985-05-15', 1, 'FEMALE', 0),
+                                                                                                                        (2, 'Robert', 'Janowski', '321321321', 'bob@example.com', 'PAT101', '1990-08-20', 2, 'MALE', 0),
+                                                                                                                        (3, 'Monika', 'Duch', '147147147', 'mon@example.com', 'PAT456', '2000-05-06', 2, 'OTHER', 0),
+                                                                                                                        (4, 'Malina', 'Krzyk', '147147147', 'mon@example.com', 'PAT456', '2000-12-09', 2, 'FEMALE', 0),
+                                                                                                                        (5, 'Adam', 'Krzyk', '147144347', 'adkrz@example.com', 'PAT457', '2001-02-06', 2, 'MALE', 0),
+                                                                                                                        (6, 'Adam', 'Patyk', '621621621', 'adam@example.com', 'PAT852', '2010-08-10', 2, 'MALE', 0);
 
 -- nowe dane do tabeli Visit
 INSERT INTO VISIT (id, description, time, doctor_id, patient_id) VALUES
